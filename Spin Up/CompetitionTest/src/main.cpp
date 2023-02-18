@@ -55,7 +55,7 @@ void pre_auton(void) {
 void autonomous(void) {
   Drivetrain.setDriveVelocity(30, percent);
   SpinnerMotor.setVelocity(100, percent);
-  Drivetrain.driveFor(145, inches, false);
+  //Drivetrain.driveFor(145, inches, false);
   SpinnerMotor.spinFor(forward, 10000, degrees, false);
 }
 
