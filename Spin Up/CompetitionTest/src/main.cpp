@@ -78,6 +78,7 @@ motor rightMotorC = motor(PORT12, ratio18_1, true);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB, rightMotorC);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
 motor SpinnerMotor = motor(PORT18, ratio18_1, false);
+motor ExpansionMotor = motor(PORT13, ratio18_1, false);
 controller Controller1 = controller(primary);
 float slowSpeedPercentage = .5F;
 int slowestSpeedPercentage = 10;
@@ -163,6 +164,21 @@ void usercontrol(void) {
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
         Controller1RightShoulderControlMotorsStopped = true;
       }
+      // check the ButtonL1/ButtonL2 status to control ExpansionMotor
+      ExpansionMotor.setVelocity(30, percent);
+      if (Controller1.ButtonL1.pressing())
+      {
+        ExpansionMotor.spin(reverse);
+      }
+      else if (Controller1.ButtonL2.pressing())
+      {
+        ExpansionMotor.spin(forward);
+      }
+      else
+      {
+        ExpansionMotor.stop();
+      }
+
       if (Controller1.ButtonUp.pressing()) {
         LeftDriveSmart.setVelocity(slowestSpeedPercentage, percent);
         LeftDriveSmart.spin(forward);
